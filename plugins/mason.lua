@@ -154,7 +154,7 @@ return {
         "stylua",      -- Lua formatter
         "black",       -- Python formatter
         "isort",       -- Python import formatter
-        "gofmt",       -- Go formatter
+        "gofumpt",       -- Go formatter
         "goimports",   -- Go imports
         "rustfmt",     -- Rust formatter
         "eslint_d",    -- JS linter
