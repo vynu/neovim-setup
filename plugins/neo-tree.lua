@@ -7,11 +7,99 @@ return {
     "MunifTanjim/nui.nvim",
   },
   config = function()
+    -- Ensure icons are loaded
+    require("nvim-web-devicons").setup({
+      override = {},
+      default = true,
+    })
+
+    -- Check if Nerd Font is available
+    local function has_nerd_font()
+      -- Check if running in a GUI or if font supports icons
+      return vim.g.have_nerd_font or vim.fn.has("gui_running") == 1
+    end
+
+    -- Configure icons based on font availability
+    local icons = {
+      -- Folder icons
+      folder_closed = has_nerd_font() and "" or "[+]",
+      folder_open = has_nerd_font() and "" or "[-]",
+      folder_empty = has_nerd_font() and "" or "[ ]",
+      folder_empty_open = has_nerd_font() and "" or "[ ]",
+      default = has_nerd_font() and "" or "*",
+      
+      -- Expander icons
+      expander_collapsed = has_nerd_font() and "" or "+",
+      expander_expanded = has_nerd_font() and "" or "-",
+      
+      -- Git status icons
+      git = {
+        added = has_nerd_font() and "" or "+",
+        modified = has_nerd_font() and "" or "~",
+        deleted = has_nerd_font() and "✖" or "x",
+        renamed = has_nerd_font() and "󰁕" or "→",
+        untracked = has_nerd_font() and "" or "?",
+        ignored = has_nerd_font() and "" or "◌",
+        unstaged = has_nerd_font() and "󰄱" or "✗",
+        staged = has_nerd_font() and "" or "✓",
+        conflict = has_nerd_font() and "" or "!",
+      },
+    }
+
     require("neo-tree").setup({
-      close_if_last_window = true, -- Close Neo-tree if it's the last window
+      close_if_last_window = true,
       popup_border_style = "rounded",
       enable_git_status = true,
       enable_diagnostics = true,
+      
+      default_component_configs = {
+        container = {
+          enable_character_fade = true,
+        },
+        indent = {
+          indent_size = 2,
+          padding = 1,
+          with_markers = true,
+          indent_marker = "│",
+          last_indent_marker = "└",
+          highlight = "NeoTreeIndentMarker",
+          with_expanders = true,
+          expander_collapsed = icons.expander_collapsed,
+          expander_expanded = icons.expander_expanded,
+          expander_highlight = "NeoTreeExpander",
+        },
+        icon = {
+          folder_closed = icons.folder_closed,
+          folder_open = icons.folder_open,
+          folder_empty = icons.folder_empty,
+          folder_empty_open = icons.folder_empty_open,
+          default = icons.default,
+          highlight = "NeoTreeFileIcon",
+        },
+        modified = {
+          symbol = "[+]",
+          highlight = "NeoTreeModified",
+        },
+        name = {
+          trailing_slash = false,
+          use_git_status_colors = true,
+          highlight = "NeoTreeFileName",
+        },
+        git_status = {
+          symbols = {
+            added = icons.git.added,
+            modified = icons.git.modified,
+            deleted = icons.git.deleted,
+            renamed = icons.git.renamed,
+            untracked = icons.git.untracked,
+            ignored = icons.git.ignored,
+            unstaged = icons.git.unstaged,
+            staged = icons.git.staged,
+            conflict = icons.git.conflict,
+          },
+        },
+      },
+      
       filesystem = {
         follow_current_file = {
           enabled = true,
@@ -29,8 +117,12 @@ return {
             "thumbs.db",
             "node_modules",
           },
+          never_show = {
+            ".DS_Store",
+          },
         },
       },
+      
       window = {
         position = "left",
         width = 35,
@@ -67,33 +159,6 @@ return {
           ["<"] = "prev_source",
           [">"] = "next_source",
           ["i"] = "show_file_details",
-        },
-      },
-      default_component_configs = {
-        indent = {
-          with_expanders = true,
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
-        },
-        icon = {
-          folder_closed = "",
-          folder_open = "",
-          folder_empty = "",
-          default = "",
-        },
-        git_status = {
-          symbols = {
-            added = "",
-            modified = "",
-            deleted = "✖",
-            renamed = "󰁕",
-            untracked = "",
-            ignored = "",
-            unstaged = "󰄱",
-            staged = "",
-            conflict = "",
-          },
         },
       },
     })
