@@ -13,36 +13,25 @@ return {
       default = true,
     })
 
-    -- Check if Nerd Font is available
-    local function has_nerd_font()
-      -- Check if running in a GUI or if font supports icons
-      return vim.g.have_nerd_font or vim.fn.has("gui_running") == 1
-    end
-
-    -- Configure icons based on font availability
+    -- FORCE Nerd Font icons (remove fallback detection)
     local icons = {
-      -- Folder icons
-      folder_closed = has_nerd_font() and "" or "[+]",
-      folder_open = has_nerd_font() and "" or "[-]",
-      folder_empty = has_nerd_font() and "" or "[ ]",
-      folder_empty_open = has_nerd_font() and "" or "[ ]",
-      default = has_nerd_font() and "" or "*",
-      
-      -- Expander icons
-      expander_collapsed = has_nerd_font() and "" or "+",
-      expander_expanded = has_nerd_font() and "" or "-",
-      
-      -- Git status icons
+      folder_closed = "",
+      folder_open = "",
+      folder_empty = "",
+      folder_empty_open = "",
+      default = "",
+      expander_collapsed = "",
+      expander_expanded = "",
       git = {
-        added = has_nerd_font() and "" or "+",
-        modified = has_nerd_font() and "" or "~",
-        deleted = has_nerd_font() and "✖" or "x",
-        renamed = has_nerd_font() and "󰁕" or "→",
-        untracked = has_nerd_font() and "" or "?",
-        ignored = has_nerd_font() and "" or "◌",
-        unstaged = has_nerd_font() and "󰄱" or "✗",
-        staged = has_nerd_font() and "" or "✓",
-        conflict = has_nerd_font() and "" or "!",
+        added = "",
+        modified = "",
+        deleted = "✖",
+        renamed = "󰁕",
+        untracked = "",
+        ignored = "",
+        unstaged = "󰄱",
+        staged = "",
+        conflict = "",
       },
     }
 
@@ -187,8 +176,6 @@ return {
     keymap.set("n", "<D-r>", ":Neotree reveal<CR>", { desc = "Reveal in Neo-tree (Cmd+R)", silent = true })
 
     -- WINDOW NAVIGATION - Switch between Neo-tree and Editor
-    -- These work when Neo-tree is open
-
     -- Ctrl+h: Focus Neo-tree window (left)
     keymap.set("n", "<C-h>", "<C-w>h", { desc = "Focus left window (Neo-tree)", silent = true })
     
