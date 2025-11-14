@@ -15,13 +15,13 @@ return {
 
     -- FORCE Nerd Font icons (remove fallback detection)
     local icons = {
-      folder_closed = "",
-      folder_open = "",
-      folder_empty = "",
-      folder_empty_open = "",
-      default = "",
-      expander_collapsed = "",
-      expander_expanded = "",
+      -- folder_closed = "",
+      -- folder_open = "",
+      -- folder_empty = "",
+      -- folder_empty_open = "",
+      -- default = "",
+      -- expander_collapsed = "",
+      -- expander_expanded = "",
       git = {
         added = "",
         modified = "",
