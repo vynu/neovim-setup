@@ -19,8 +19,6 @@ return {
         python = { "isort", "black" },
         go = { "goimports", "gofmt" },
         rust = { "rustfmt" },
-        sql = { "sql_formatter" },
-        sh = { "shfmt" },
       },
       format_on_save = {
         timeout_ms = 500,
@@ -35,6 +33,6 @@ return {
         async = false,
         timeout_ms = 1000,
       })
-    end, { desc = "Format file or range (in visual mode)" })
+    end, { desc = "Format file or range" })
   end,
 }
